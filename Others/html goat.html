@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ayurvedic Remedy Finder</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(to bottom, #f0fdf4, #dcfce7);
+    }
+
+    .card {
+      box-shadow: 0 10px 20px rgba(0, 100, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 100, 0, 0.2);
+    }
+
+    select:focus, button:focus {
+      outline: 2px solid #4ade80;
+    }
+  </style>
+</head>
+<body class="text-green-900">
+
+  <div class="max-w-3xl mx-auto p-6">
+    <div class="card bg-white rounded-2xl p-6">
+      <h1 class="text-3xl font-bold text-center mb-4">
+        Ayurvedic Remedy Finder
+      </h1>
+      <label class="block text-lg font-semibold mb-2">
+        Select a symptom:
+      </label>
+      <select id="symptomSelect" class="w-full p-3 border border-green-300 rounded-lg mb-4 bg-green-50">
+        <option value="">-- Choose a symptom --</option>
+        <option value="cough">Cough</option>
+        <option value="cold">Cold</option>
+        <option value="headache">Headache</option>
+        <option value="fever">Fever</option>
+        <option value="indigestion">Indigestion</option>
+        <option value="constipation">Constipation</option>
+        <option value="acidity">Acidity</option>
+        <option value="stress">Stress</option>
+        <option value="anxiety">Anxiety</option>
+        <option value="hairfall">Hair Fall</option>
+        <option value="dandruff">Dandruff</option>
+        <option value="weak immunity">Weak Immunity</option>
+        <option value="skin allergy">Skin Allergy</option>
+        <option value="joint pain">Joint Pain</option>
+        <option value="insomnia">Insomnia</option>
+        <option value="sore throat">Sore Throat</option>
+        <option value="back pain">Back Pain</option>
+        <option value="gas">Gas</option>
+        <option value="bloating">Bloating</option>
+        <option value="pimples">Pimples</option>
+        <option value="low energy">Low Energy</option>
+        <option value="poor digestion">Poor Digestion</option>
+        <option value="eye strain">Eye Strain</option>
+        <option value="menstrual cramps">Menstrual Cramps</option>
+        <option value="nausea">Nausea</option>
+        <option value="sinus">Sinus</option>
+        <option value="high blood pressure">High Blood Pressure</option>
+        <option value="diabetes support">Diabetes Support</option>
+        <option value="dry skin">Dry Skin</option>
+        <option value="weak memory">Weak Memory</option>
+      </select>
+
+      <button onclick="showRemedy()"
+              class="w-full bg-green-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+        Get Ayurvedic Remedy
+      </button>
+
+      <div id="remedyResult"
+           class="mt-6 p-4 bg-green-100 border-l-4 border-green-600 text-green-900 hidden rounded-md font-medium">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const remedies = {
+      cough: "🌿 Tulsi tea with honey and ginger",
+      cold: "🌿 Turmeric milk and steam inhalation",
+      headache: "🌿 Apply Brahmi oil and rest",
+      fever: "🌿 Giloy juice and coriander seed water",
+      indigestion: "🌿 Ajwain and jeera with warm water",
+      constipation: "🌿 Triphala powder at night",
+      acidity: "🌿 Amla juice and aloe vera",
+      stress: "🌿 Ashwagandha and meditation",
+      anxiety: "🌿 Brahmi and daily pranayama",
+      hairfall: "🌿 Bhringraj oil and amla supplements",
+      dandruff: "🌿 Neem paste and coconut oil",
+      "weak immunity": "🌿 Chyawanprash and giloy",
+      "skin allergy": "🌿 Neem and turmeric paste",
+      "joint pain": "🌿 Mahanarayan oil massage and turmeric",
+      insomnia: "🌿 Warm milk with nutmeg and Shankhpushpi syrup",
+      "sore throat": "🌿 Mulethi powder with honey",
+      "back pain": "🌿 Panchakarma therapy and castor oil massage",
+      gas: "🌿 Hing and ajwain decoction",
+      bloating: "🌿 Fennel seeds after meals",
+      pimples: "🌿 Sandalwood paste and neem face wash",
+      "low energy": "🌿 Ashwagandha and Shilajit",
+      "poor digestion": "🌿 Pippali and Trikatu churna",
+      "eye strain": "🌿 Triphala eyewash and ghee",
+      "menstrual cramps": "🌿 Dashmool and warm sesame oil",
+      nausea: "🌿 Ginger tea or cardamom powder",
+      sinus: "🌿 Steam with eucalyptus oil and sitopaladi churna",
+      "high blood pressure": "🌿 Arjuna bark powder and garlic",
+      "diabetes support": "🌿 Jamun seed powder and methi",
+      "dry skin": "🌿 Almond oil and saffron milk",
+      "weak memory": "🌿 Brahmi, Shankhpushpi, and almonds"
+    };
+
+    function showRemedy() {
+      const symptom = document.getElementById("symptomSelect").value;
+      const resultDiv = document.getElementById("remedyResult");
+
+      if (symptom && remedies[symptom]) {
+        resultDiv.textContent = `✅ Recommended Ayurvedic Remedy: ${remedies[symptom]}`;
+        resultDiv.classList.remove("hidden");
+      } else {
+        resultDiv.textContent = "⚠️ Please select a valid symptom.";
+        resultDiv.classList.remove("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
